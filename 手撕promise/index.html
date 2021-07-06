@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,10 @@
 <body>
     <script>
         let p = new Promise((resolve,reject) => {
-            resolve('ok')
+            // resolve('ok')
+            reject('error')
         })
-
+        console.log(p);
         p.then(value => {
             console.log(value); 
         },reason => {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 32px;
+            font-weight: bolder;
+            background-color: antiquewhite;
+        }
+
+        header,
+        footer {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: gray;
+        }
+
+        .clearfix {
+            padding: 0 200px 0 150px;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .center,
+        .left,
+        .right {
+            float: left;
+            height: 200px;
+            line-height: 200px;
+        }
+
+        .center {
+            width: 100%;
+            background-color: red;
+        }
+
+        .left {
+            /* 宽度和padding对应 */
+            width: 150px;
+            /* 将left移动到center内容区的左侧 */
+            margin-left: -100%;
+            /* 为了不让left占据center区面积，使用定位继续左移覆盖padding */
+            position: relative;
+            right: 150px;
+            background-color: lightblue;
+        }
+
+        .right {
+            /* 宽度和padding对应 */
+            width: 200px;
+            /* 将left移动到center内容区的右侧 */
+            margin-left: -200px;
+            /* 为了不让left占据center区面积，使用定位继续右移覆盖padding */
+            position: relative;
+            left: 200px;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <header>头部</header>
+    <div class="clearfix">
+        <div class="center">主区域</div>
+        <div class="left">左区域</div>
+        <div class="right">右区域</div>
+    </div>
+    <footer>底部</footer>
+</body>
+
+</html>
