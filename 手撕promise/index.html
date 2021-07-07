@@ -1,24 +1,93 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./promise.js"></script>
+    <!-- <script src="./promise.js"></script> -->
+    <script src="./promise_class.js"></script>
     <title>手写promise</title>
 </head>
+
 <body>
     <script>
-        let p = new Promise((resolve,reject) => {
-            // resolve('ok')
+
+        // then中的回调函数时异步执行的
+        let prm1 = new Promise((resolve, reject) => {
+            resolve()
+            console.log(111);
+        })
+        prm1.then((value) => {
+            console.log(222);
+        })
+        console.log(333);
+
+
+        // 测试all 方法
+        let pro1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('oh yeah')
+            }, 1000);
+        })
+        let pro2 = Promise.resolve('success')
+        let pro3 = Promise.resolve('ok')
+        // let result = Promise.all([pro1, pro2, pro3])
+        let result = Promise.race([pro1, pro2, pro3])
+        console.log(result);
+
+        // 测试resolve 和 reject 方法
+        // let p1 = Promise.resolve('ok')
+        let p1 = Promise.resolve(new Promise((resolve, reject) => {
             reject('error')
+        }))
+        // let p1 = Promise.resolve(Promise.resolve('okk'))
+        console.log(p1);
+
+        // 测试resolve 和 reject 方法
+        // let p2 = Promise.reject('oh no')
+        let p2 = Promise.reject(new Promise((resolve, reject) => {
+            resolve('ok')
+        }))
+        console.log(p2);
+
+
+        let p = new Promise((resolve, reject) => {
+            // 同步方法，先改变状态，然后指定then回调时就调用了
+            // reject('error')
+            resolve('ok')
+            // throw 'Error'
+
+            // 异步方法 代码从上往下执行，先指定回调，等异步方法执行完（状态改变），再调用回调
+            // setTimeout(() => {
+            //     resolve('ok')
+            //     // reject('error')
+            // }, 1000)
         })
-        console.log(p);
-        p.then(value => {
-            console.log(value); 
-        },reason => {
-            console.log(reason);
-        })
+
+        let res = p.then(value => {
+            console.log(111);
+            // console.log(value);
+            // return 'success'
+            // throw 'fail'
+            // return new Promise((resolve,reject) => {
+            //     resolve('success')
+            //     // reject('error')
+            // })
+        }).then(value => {
+            console.log(222);
+            throw 'fail'
+        }).then(value => {
+            console.log(333);
+        }).catch(reason => {
+            console.warn(reason);
+        });
+        // console.log(res);
+
+
+
+
     </script>
 </body>
+
 </html>
