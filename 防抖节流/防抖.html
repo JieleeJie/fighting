@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖</title>
+</head>
+
+<body>
+
+    <input type="text">
+
+    <script>
+
+        /* 场景
+        window 的 resize、scroll
+        mousedown、mousemove
+        keyup、keydown */
+        // 防抖是控制次数，节流是控制频率
+        // 防抖：持续触发不执行 不触发的一段时间之后再执行。     限制函数的执行次数      防止用户触发事件过于频繁，只要最后一次的事件操作
+        // 节流：持续触发并不会执行多次  到一定时间才去执行一次  减少一段时间内的触发频率
+
+        let inp = document.querySelector('input')
+        function printValue() {
+            // console.log(this);
+            console.log(this.value);
+        };
+        // inp.oninput = printValue
+        inp.oninput = debounce(printValue, 500)
+
+        // 非立即执行版
+        // function debounce(fn,delay) {
+        //     let timer = null
+        //     return function (){
+        //         if(timer !== null) clearTimeout(timer)
+        //         timer = setTimeout(() => {
+        //             // this和arguments 指的是return这个函数的 this和arguments
+        //             // 而该函数由input调用，所以this指向input框
+        //             // 若不绑定this，则fn中的this指向Window 而不是 input
+        //             // console.log(this);
+        //             // fn()
+        //             fn.apply(this,arguments)
+        //         }, delay);
+        //     }
+        // }
+
+        // 立即执行版 
+        // 立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
+        function debounce(fn, delay) {
+            let timer = null
+            return function () {
+                // 第一次触发或者定时器执行完以后 timer为null 立即执行
+                // 在定时器时间内，timer不为null 无法执行
+                let callNow = !timer;
+                if (callNow) fn.apply(this, arguments)
+                // 在定时器时间内（timer !== null），触发事件则重新计时 
+                if (timer !== null) clearTimeout(timer)
+                timer = setTimeout(() => {
+                    timer = null
+                }, delay)
+            }
+        }
+
+    </script>
+</body>
+
+</html>
