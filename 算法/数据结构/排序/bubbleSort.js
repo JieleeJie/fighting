@@ -11,8 +11,8 @@ function bubbleSort(array) {
                 [array[inner], array[inner + 1]] = [array[inner + 1], array[inner]]
                 flag = false
             }
-            if(true) break
         }
+        if(flag) break
     }
 }
 
