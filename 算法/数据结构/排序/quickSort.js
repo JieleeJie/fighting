@@ -1,5 +1,5 @@
 function quickSort(array, start, end) {
-    if (!Array.isArray(array)||array.length <= 1 || start >= end) return
+    if (!Array.isArray(array) || array.length <= 1 || start >= end) return
 
     let index = partion(array, start, end)
     quickSort(array, start, index - 1)
@@ -24,8 +24,8 @@ function partion(array, start, end) {
     return start
 }
 
-let arr = [49,38,65,97,76,13,27,49]
+let arr = [49, 38, 65, 97, 76, 13, 27, 49]
 
-quickSort(arr,0,arr.length-1)
+quickSort(arr, 0, arr.length - 1)
 
 console.log(arr);
