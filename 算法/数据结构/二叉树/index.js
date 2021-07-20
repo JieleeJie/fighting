@@ -147,25 +147,30 @@ class BinarySearchTree {
 
     // 层次遍历
     levelOrderTraverse() {
-        return this.levelOrderTraverseNode(this.root, 0)
-    }
-    levelOrderTraverseNode(node, level) {
         let result = []
-        if (node !== null) {
-            // !undefined
-            if (!result[level]) {
-                result[level] = []
-            }
-            result[level].push(node.value)
-            if (node.left) {
-                this.levelOrderTraverseNode(node.left, level + 1)
-            }
-            if (node.right) {
-                this.levelOrderTraverseNode(node.right, level + 1)
+
+        // 注意 将result定义在了函数外面， 所以不能向其他遍历一样拆分成两个类方法
+        // 注意加function
+        function levelOrderTraverseNode(node, level) {
+            if (node !== null) {
+                // !undefined
+                if (!result[level]) {
+                    result[level] = []
+                }
+                result[level].push(node.value)
+                if (node.left) {
+                    levelOrderTraverseNode(node.left, level + 1)
+                }
+                if (node.right) {
+                    levelOrderTraverseNode(node.right, level + 1)
+                }
             }
         }
+
+        levelOrderTraverseNode(this.root, 0)
         return result
     }
+
 
     // 寻找最小值，在最左边的叶子节点上
     findMinNode(root) {
