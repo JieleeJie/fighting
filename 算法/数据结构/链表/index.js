@@ -93,6 +93,29 @@ oneLinkList.insert_tail(3)
 // oneLinkList.insert_anywhere(3, 666)
 // console.log('-------查找值所对应的节点-------');
 // console.log(oneLinkList.find(2))
-console.log('-------删除值所对应的节点-------');
-oneLinkList.remove(0)
-console.log(oneLinkList)
+// console.log('-------删除值所对应的节点-------');
+// oneLinkList.remove(0)
+// console.log(oneLinkList)
+
+// 翻转单链表
+// 使用三个变量分别表示当前节点和当前节点的前后节点
+function reverseLinkedList(linkList) {
+    // 判断下变量边界问题
+    if (!linkList.head || !linkList.head.next) return
+    let current = linkList.head,
+        before = null,
+        after = null
+    // 判断当前节点是否为空
+    // 不为空就先获取当前节点的下一节点
+    // 然后把当前节点的 next 设为上一个节点
+    // 然后把 current 设为下一个节点，pre 设为当前节点
+    while (current) {
+        // 注意看顺序 字、自己赋值给其他之后，其他立马赋值给自己
+        after = current.next
+        current.next = before
+        before = current
+        current = after
+    }
+    return before
+}
+console.log(reverseLinkedList(oneLinkList));
