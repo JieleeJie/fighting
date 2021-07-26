@@ -162,7 +162,7 @@ class Promise {
                     // 为了保证顺序，不使用push（避免异步任务带来的影响）
                     resultArr[i] = v
                     // 全部成功后才执行resolve 改变状态
-                    if (count === resultArr.length) {
+                    if (count === promises.length) {
                         resolve(resultArr)
                     }
                 }, r => {
