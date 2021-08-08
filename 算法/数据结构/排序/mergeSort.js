@@ -1,11 +1,12 @@
 function mergeSort(array) {
+
     let length = array.length;
+
     // 如果不是数组或者数组长度小于等于0，直接返回，不需要排序 
     if (!Array.isArray(array) || length === 0) return;
     if (length === 1) {
         return array;
     }
-
     let mid = parseInt(length >> 1), // 找到中间索引值
         left = array.slice(0, mid), // 截取左半部分
         right = array.slice(mid, length); // 截取右半部分
@@ -40,8 +41,11 @@ function merge(leftArray, rightArray) {
     return result;
 }
 
+
+
 let arr = [49, 38, 65, 97, 76, 13, 27]
-console.log(mergeSort1(arr))
+
+console.log(mergeSort(arr))
 
 // console.log(arr.length >> 1);
 // console.log(arr.length / 2);
