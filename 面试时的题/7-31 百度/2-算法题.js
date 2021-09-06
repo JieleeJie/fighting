@@ -47,15 +47,56 @@
 
 /* 递归不知道如何存入数组 */
 function getAllRoute(node){
-    let route = []
+    let route = [];
     while(node.left || node.right){
-        let oneRoute = []
-        oneRoute.push(node.value)
-        getAllRoute(node.left)
-        getAllRoute(node.right)
+        let oneRoute = [];
+        oneRoute.push(node.value);
+        getAllRoute(node.left);
+        getAllRoute(node.right);
     }
     // while(node.right){
     //     console.log(node.value);
     //     getAllRoute(node.right)
     // }
 }
+// 深度优先搜索
+var binaryTreePaths = function (root) {
+    let paths = [];
+    const construct_path = (node, path) => {
+        if (node) {
+            path += node.val.toString();
+            if (!node.left && !node.right) {
+                paths.push(path);
+            } else {
+                path += '->';
+                construct_path(node.left,path);
+                construct_path(node.right,path);
+            }
+        }
+    };
+    construct_path(root,'');
+    return paths;
+};
+// 广度优先搜索
+var binaryTreePaths = function (root) {
+    if (!root) return [];
+    let paht_final = [];
+    let queue = [root], paths = [root.val.toString()];
+    while (queue.length) {
+        let node = queue.shift();
+        let path = paths.shift();
+        if (!node.left && !node.right) {
+            paht_final.push(path)
+        } else {
+            if (node.left) {
+                queue.push(node.left);
+                paths.push(`${path}->${node.left.val.toString()}`);
+            }
+            if (node.right) {
+                queue.push(node.right);
+                paths.push(`${path}->${node.right.val.toString()}`);
+            }
+        }
+    }
+    return paht_final;
+};
